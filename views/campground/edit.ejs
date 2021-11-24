@@ -3,34 +3,84 @@
     <div>
         <h1 class="text-center my-3">Edit Campground</h1>
         <div class="col-6 offset-3">
-            <form action="/campgrounds/edit/<%=camp._id%>?_method=PUT" method="POST">
+            <form action="/campgrounds/edit/<%=camp._id%>?_method=PUT" method="POST" novalidate class="validateForm">
                 <div class="my-2">
                     <label class="form-label" for="title">Title: </label>
-                    <input class="form-control" type="text" name="title" id="title" placeholder="Title" value="<%=camp.title%>">
+                    <input class="form-control" type="text" name="title" value="<%=camp.title%>" id="title" placeholder="Title" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a title.
+                    </div>
                 </div>
                 <div class="my-2">
                     <label class="form-label" for="location">Location: </label>
-                    <input class="form-control" type="text" name="location" id="location" placeholder="Location" value="<%=camp.location%>">
+                    <input class="form-control" type="text" name="location" value="<%=camp.location%>" id="location" placeholder="Location" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a location.
+                    </div>    
                 </div>
                 <div class="my-2">
                     <label class="form-label" for="price">Price: </label>
                     <div class="input-group">
                         <span class="input-group-text" id="price">$</span>
-                        <input type="text" class="form-control" placeholder="0.00" aria-label="price" aria-describedby="price" value="<%=camp.price%>">
-                      </div>
+                        <input type="text" class="form-control" placeholder="0.00" value="<%=camp.price%>" aria-label="price" aria-describedby="price" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter a price.
+                        </div>        
+                    </div>
                 </div>
                 <div class="my-2">
                     <label class="form-label" for="image">Image URL: </label>
-                    <input class="form-control" type="text" name="image" id="image" placeholder="Image URL" value="<%=camp.image%>">
+                    <input class="form-control" type="text" name="image" value="<%=camp.image%>" id="image" placeholder="Image URL" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter an image URL.
+                    </div>    
                 </div>
                 <div class="my-2">
                     <label class="form-label" for="description">Description: </label>
-                    <input class="form-control" type="text" name="description" id="description" placeholder="Description" value="<%=camp.description%>">
+                    <textarea class="form-control" type="text" name="description" id="description" placeholder="Description" required><%=camp.description%></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a description.
+                    </div>    
                 </div>
                 <div class="my-3">
                     <button class="btn btn-success" type="submit">Edit Campground</button>
-                    <button class="btn btn-primary" href="/campgrounds">All Campground</button>
+                    <a class="btn btn-primary" href="/campgrounds">All Campground</a>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+              // Fetch all the forms we want to apply custom Bootstrap validation styles to
+              var forms = document.getElementsByClassName('validateForm');
+              // Loop over them and prevent submission
+              var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                  if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+                  form.classList.add('was-validated');
+                }, false);
+              });
+            }, false);
+        })();
+    </script>
